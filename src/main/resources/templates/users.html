@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список дел</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-size: 18px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 20px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 8px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Список дел</h1>
+
+<!-- Форма для добавления нового пользователя -->
+<form th:action="@{/users/add}" method="post">
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name" required />
+    <button type="submit">Добавить</button>
+</form>
+
+<!-- Таблица пользователей -->
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td>
+            <!-- Ссылка на удаление пользователя -->
+            <a th:href="@{/users/delete/{id}(id=${user.id})}">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
